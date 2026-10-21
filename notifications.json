@@ -1,0 +1,15 @@
+{
+  "notifications": [
+    {
+      "id": "star-orbit-2026",
+      "title": "Enjoying Orbit?",
+      "message": "A GitHub star helps others discover Orbit.",
+      "description": "Thanks for supporting the project.",
+      "buttonLabel": "Star on GitHub",
+      "actionUrl": "https://github.com/bettercallsoham/orbit",
+      "startDate": "2026-10-21T00:00:00Z",
+      "endDate": "2027-10-21T00:00:00Z",
+      "expiresAt": "2027-10-21T00:00:00Z"
+    }
+  ]
+}

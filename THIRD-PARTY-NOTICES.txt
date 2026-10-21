@@ -1,0 +1,4 @@
+Third-party licenses
+
+Anton Regular — SIL Open Font License 1.1.
+Copyright and license text: resources/Fonts/OFL.txt.
