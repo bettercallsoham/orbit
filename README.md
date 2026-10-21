@@ -1,7 +1,7 @@
-# Orbit
-
+# Orbit 
 **Make every move count.** Orbit is a native Windows file utility that puts conversions, tools, and file actions in a contextual radial wheel. Choose a file in Orbit or drag one in File Explorer, then pick an action without navigating through separate apps.
 
+Click here to [Download](https://github.com/bettercallsoham/orbit/archive/refs/tags/v1.0.0.zip) :) <br>
 ## Features
 
 - Convert supported images, media, documents, and archives.
