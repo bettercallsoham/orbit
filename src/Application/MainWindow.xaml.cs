@@ -23,6 +23,7 @@ namespace Orbit
         private readonly GlobalHookService _hookService;
         private readonly TrayIconService _trayService;
         private readonly RadialWheelOverlay _overlay;
+        private bool _exitRequested;
 
         private readonly ObservableCollection<ConversionJob> _history = new();
         private string? _playgroundLoadedFile;
@@ -33,7 +34,7 @@ namespace Orbit
             _settingsService = new SettingsService();
             // Retain the saved template id for compatibility, but present one public identity.
             TemplateManager.Instance.Apply(BuiltInTemplates.DefaultId);
-            AppThemeService.Apply(TemplateManager.Instance.Current);
+            AppThemeService.Apply(_settingsService.Current.Theme);
 
             InitializeComponent();
 
@@ -68,6 +69,8 @@ namespace Orbit
             // Setting each control fires OnSettingChanged, which would save the not-yet-loaded controls' defaults
             _loadingSettings = true;
             var s = _settingsService.Current;
+            s.Theme = AppThemeService.Normalize(s.Theme);
+            SelectTheme(s.Theme);
             SaveSameDirRadio.IsChecked = s.SaveInSameDirectory;
             SaveCustomDirRadio.IsChecked = !s.SaveInSameDirectory;
             CustomDirPanel.Visibility = s.SaveInSameDirectory ? Visibility.Collapsed : Visibility.Visible;
@@ -110,6 +113,24 @@ namespace Orbit
                     return;
                 }
             }
+        }
+
+        private void SelectTheme(string theme)
+        {
+            if (theme == "Boreal") BorealThemeRadio.IsChecked = true;
+            else if (theme == "Solstice") SolsticeThemeRadio.IsChecked = true;
+            else EclipseThemeRadio.IsChecked = true;
+        }
+
+        private void OnThemeChanged(object sender, RoutedEventArgs e)
+        {
+            if (_loadingSettings || _overlay == null) return;
+            string theme = BorealThemeRadio.IsChecked == true ? "Boreal" :
+                SolsticeThemeRadio.IsChecked == true ? "Solstice" : "Eclipse";
+            AppThemeService.Apply(theme);
+            _settingsService.Current.Theme = theme;
+            _settingsService.SaveSettings(_settingsService.Current);
+            _settingsService.Flush();
         }
 
         private void CheckFFmpegStatus()
@@ -210,6 +231,7 @@ namespace Orbit
                 WindowState = WindowState.Normal;
                 Activate();
             };
+            _trayService.ExitRequested += ExitOrbit;
         }
 
         private async Task ProcessJobAsync(string filePath, WheelItem option)
@@ -496,9 +518,9 @@ namespace Orbit
         private void OnCancelPlaygroundWheel(object sender, RoutedEventArgs e)
         {
             _playgroundLoadedFile = null;
-            PlaygroundPanel.MinHeight = 280;
+            PlaygroundPanel.MinHeight = 190;
             ActivityPanel.Visibility = Visibility.Visible;
-            ActivitySpacerRow.Height = new GridLength(12);
+            ActivitySpacerRow.Height = new GridLength(14);
             ActivityRow.MinHeight = 136;
             ActivityRow.Height = GridLength.Auto;
             PlaygroundWheelContainer.Visibility = Visibility.Collapsed;
@@ -528,12 +550,27 @@ namespace Orbit
 
         private void MainWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
         {
-            // Clean up hooks and tray
+            if (!_exitRequested)
+            {
+                e.Cancel = true;
+                _overlay.Dismiss();
+                Hide();
+                return;
+            }
+
             _remoteNotificationTimer?.Stop();
             _settingsService.Flush();
             _hookService.Dispose();
             _trayService.Dispose();
             _overlay.Close();
+        }
+
+        private void ExitOrbit()
+        {
+            if (_exitRequested) return;
+            _exitRequested = true;
+            Close();
+            Application.Current.Shutdown();
         }
 
         private void OnSettingChanged(object sender, RoutedEventArgs e)

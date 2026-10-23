@@ -11,8 +11,7 @@
         Foreground="{DynamicResource TextPrimaryBrush}"
         TextOptions.TextFormattingMode="Display">
 
-    <Border Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource BorderStrongBrush}"
-            BorderThickness="1" CornerRadius="2" Margin="16" Effect="{StaticResource FlyoutShadow}">
+    <Border Style="{StaticResource DialogShell}" Margin="16">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -27,7 +26,7 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Border Width="36" Height="36" CornerRadius="2" Background="{DynamicResource ModeToolsSubtleBrush}" Margin="0,0,14,0" VerticalAlignment="Top">
+                <Border Width="36" Height="36" CornerRadius="{DynamicResource ControlRadius}" Background="{DynamicResource ModeToolsSubtleBrush}" Margin="0,0,14,0" VerticalAlignment="Top">
                     <TextBlock Text="&#xE710;" Style="{StaticResource Icon}" Foreground="{DynamicResource ModeToolsBrush}" />
                 </Border>
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
@@ -44,18 +43,18 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <Border Background="{DynamicResource InputBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="2">
+                <Border Background="{DynamicResource InputBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="{DynamicResource ControlRadius}">
                     <ListBox x:Name="FileList" Background="Transparent" BorderThickness="0" Padding="4"
                              Foreground="{DynamicResource TextPrimaryBrush}" AllowDrop="True" Drop="OnFileListDrop" DragOver="OnFileListDragOver"
                              SelectionChanged="OnSelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="ListBoxItem">
-                                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                                <Setter Property="FocusVisualStyle" Value="{StaticResource OrbitFocusVisual}" />
                                 <Setter Property="Template">
                                     <Setter.Value>
                                         <ControlTemplate TargetType="ListBoxItem">
                                             <Grid Margin="0,1">
-                                                <Border x:Name="bd" Background="Transparent" CornerRadius="2" Padding="10,8">
+                                                <Border x:Name="bd" Background="Transparent" CornerRadius="{DynamicResource ControlRadius}" Padding="10,8">
                                                     <ContentPresenter />
                                                 </Border>
                                                 <Border x:Name="pip" Width="3" Height="16" CornerRadius="1.5" Background="{DynamicResource AccentBrush}"

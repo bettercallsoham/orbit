@@ -46,19 +46,19 @@ namespace Orbit.Models
     /// <summary>Wheel colors. Hex strings: #RRGGBB or #AARRGGBB.</summary>
     public sealed class WheelColors
     {
-        public string Ring { get; set; } = "#FF110718";
-        public string Hub { get; set; } = "#FF000000";
-        public string Text { get; set; } = "#F7F3FA";
-        public string TextMuted { get; set; } = "#D3C5DF";
-        public string TextFaint { get; set; } = "#A99CB5";
-        public string Edge { get; set; } = "#FF52057B";
-        public string Divider { get; set; } = "#FF52057B";
+        public string Ring { get; set; } = "#292334";
+        public string Hub { get; set; } = "#191522";
+        public string Text { get; set; } = "#F5F1FF";
+        public string TextMuted { get; set; } = "#B6AFC8";
+        public string TextFaint { get; set; } = "#A09AB1";
+        public string Edge { get; set; } = "#393244";
+        public string Divider { get; set; } = "#393244";
         public string Shadow { get; set; } = "#00000000";
 
         /// <summary>Accent per wheel.</summary>
-        public string Convert { get; set; } = "#892CDC";
-        public string Tools { get; set; } = "#892CDC";
-        public string Actions { get; set; } = "#892CDC";
+        public string Convert { get; set; } = "#A78BFA";
+        public string Tools { get; set; } = "#A78BFA";
+        public string Actions { get; set; } = "#A78BFA";
 
         /// <summary>Text drawn on a filled (hovered) option. Null lets the renderer decide.</summary>
         public string? OnAccent { get; set; }

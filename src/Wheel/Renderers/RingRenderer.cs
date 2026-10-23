@@ -39,7 +39,7 @@ namespace Orbit.Wheel.Renderers
                 double rOut = R + 6 * s * h;
                 var sector = WheelPainter.AnnularSector(center, r + 2 * s, rOut, start + 0.6, sweep - 1.2);
 
-                var fill = WheelPainter.Solid(ColorUtil.Lerp(p.Ring, Color.FromRgb(0x52, 0x05, 0x7B), h));
+                var fill = WheelPainter.Solid(ColorUtil.Lerp(p.Ring, ColorUtil.Mix(p.Ring, accent, p.IsLight ? 0.16 : 0.32), h));
                 dc.DrawGeometry(fill, WheelPainter.Pen(ColorUtil.WithAlpha(accent, h), 1.5 * s), sector);
 
                 double inset = System.Math.Min(4, sweep * 0.08);
@@ -52,8 +52,8 @@ namespace Orbit.Wheel.Renderers
                 double h = f.HoverOf(i);
                 double rMid = (r + R) / 2.0 + 3 * s * h;
                 var at = f.Polar(rMid, f.SliceMid(i));
-                var glyph = WheelPainter.Solid(ColorUtil.Lerp(p.TextMuted, Color.FromRgb(0xBC, 0x6F, 0xF1), h));
-                var label = WheelPainter.Solid(ColorUtil.Lerp(p.Text, Colors.White, h));
+                var glyph = WheelPainter.Solid(ColorUtil.Lerp(p.TextMuted, accent, h));
+                var label = WheelPainter.Solid(p.Text);
                 using (WheelPainter.Item(dc, f, i, at))
                 {
                     WheelPainter.DrawItemContent(dc, f, i, at, WheelPainter.SliceLabelWidth(f, rMid), glyph, label);

@@ -11,8 +11,7 @@
         Foreground="{DynamicResource TextPrimaryBrush}"
         TextOptions.TextFormattingMode="Display">
 
-    <Border Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource BorderStrongBrush}"
-            BorderThickness="1" CornerRadius="2" Margin="16" Effect="{StaticResource FlyoutShadow}">
+    <Border Style="{StaticResource DialogShell}" Margin="16">
         <StackPanel>
             <!-- Header (drag to move) -->
             <Grid MouseLeftButtonDown="OnHeaderMouseDown" Background="Transparent" Margin="24,22,24,18">
@@ -20,7 +19,7 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Border Width="36" Height="36" CornerRadius="2" Background="{DynamicResource ModeActionsSubtleBrush}" Margin="0,0,14,0" VerticalAlignment="Top">
+                <Border Width="36" Height="36" CornerRadius="{DynamicResource ControlRadius}" Background="{DynamicResource ModeActionsSubtleBrush}" Margin="0,0,14,0" VerticalAlignment="Top">
                     <TextBlock Text="&#xE785;" Style="{StaticResource Icon}" Foreground="{DynamicResource ModeActionsBrush}" />
                 </Border>
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
@@ -38,7 +37,7 @@
                 <CheckBox x:Name="ShowPasswordCheck" Content="Show password" Margin="0,12,0,0" FontSize="12.5"
                           Checked="OnShowPasswordChanged" Unchecked="OnShowPasswordChanged" />
 
-                <Border Background="{DynamicResource InputBrush}" CornerRadius="2" Padding="12,10" Margin="0,16,0,0">
+                <Border Background="{DynamicResource InputBrush}" CornerRadius="{DynamicResource ControlRadius}" Padding="12,10" Margin="0,16,0,0">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock x:Name="StatusIcon" Text="&#xE946;" Style="{StaticResource Icon}" FontSize="12" Margin="0,0,8,0" VerticalAlignment="Top" />
                         <TextBlock x:Name="StatusText" FontSize="12" TextWrapping="Wrap" VerticalAlignment="Center" MaxWidth="360" />

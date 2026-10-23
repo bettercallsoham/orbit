@@ -1,6 +1,17 @@
 {
   "notifications": [
     {
+      "id": "orbit-1.1.0-release",
+      "title": "Orbit 1.1.0 is here",
+      "message": "Meet Eclipse, Boreal, and Solstice in a refreshed Orbit interface.",
+      "description": "Switch themes in Settings. The Home page, controls, notifications, and radial wheel now share a cohesive design.",
+      "buttonLabel": "View update",
+      "actionUrl": "https://github.com/bettercallsoham/orbit/releases/tag/v1.1.0",
+      "startDate": "2026-10-23T00:00:00Z",
+      "endDate": "2027-01-23T00:00:00Z",
+      "expiresAt": "2027-01-23T00:00:00Z"
+    },
+    {
       "id": "star-orbit-2026",
       "title": "Enjoying Orbit?",
       "message": "A GitHub star helps others discover Orbit.",

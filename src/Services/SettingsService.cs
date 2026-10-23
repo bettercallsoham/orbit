@@ -14,11 +14,13 @@ namespace Orbit.Services
         private readonly DispatcherTimer _saveTimer;
         private bool _dirty;
 
-        public SettingsService()
+        public SettingsService() : this(Path.Combine(AppPaths.UserDataDirectory, "settings.json")) { }
+
+        /// <summary>Alternate location for isolated verification without touching the user's settings.</summary>
+        internal SettingsService(string settingsPath)
         {
-            string folder = AppPaths.UserDataDirectory;
-            Directory.CreateDirectory(folder);
-            _settingsPath = Path.Combine(folder, "settings.json");
+            Directory.CreateDirectory(Path.GetDirectoryName(settingsPath)!);
+            _settingsPath = settingsPath;
             _saveTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(400) };
             _saveTimer.Tick += (_, _) => Flush();
             _currentSettings = LoadSettings();

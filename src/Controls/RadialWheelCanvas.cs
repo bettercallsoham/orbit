@@ -78,11 +78,13 @@ namespace Orbit.Controls
             Loaded += (_, _) =>
             {
                 TemplateManager.Instance.CurrentChanged += OnGlobalTemplateChanged;
+                AppThemeService.Changed += OnGlobalTemplateChanged;
                 _accentShown = Palette.AccentFor(CurrentMode);
             };
             Unloaded += (_, _) =>
             {
                 TemplateManager.Instance.CurrentChanged -= OnGlobalTemplateChanged;
+                AppThemeService.Changed -= OnGlobalTemplateChanged;
                 StopAnimating();
             };
         }

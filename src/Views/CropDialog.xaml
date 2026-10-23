@@ -18,7 +18,7 @@
         <Style x:Key="RatioChip" TargetType="RadioButton">
             <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}" />
             <Setter Property="Cursor" Value="Hand" />
-            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="FocusVisualStyle" Value="{StaticResource OrbitFocusVisual}" />
             <Setter Property="Margin" Value="0,0,6,6" />
             <Setter Property="FontSize" Value="12" />
             <Setter Property="GroupName" Value="Ratio" />
@@ -26,7 +26,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="RadioButton">
                         <Border x:Name="bd" Background="{DynamicResource InputBrush}" BorderBrush="{DynamicResource BorderBrush}"
-                                BorderThickness="1" CornerRadius="2" Padding="12,5">
+                                BorderThickness="1" CornerRadius="{DynamicResource ControlRadius}" Padding="12,5">
                             <ContentPresenter />
                         </Border>
                         <ControlTemplate.Triggers>
@@ -46,8 +46,7 @@
         </Style>
     </Window.Resources>
 
-    <Border Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource BorderStrongBrush}"
-            BorderThickness="1" CornerRadius="2" Margin="16" Effect="{StaticResource FlyoutShadow}">
+    <Border Style="{StaticResource DialogShell}" Margin="16">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -63,7 +62,7 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Border Width="36" Height="36" CornerRadius="2" Background="{DynamicResource ModeToolsSubtleBrush}" Margin="0,0,14,0" VerticalAlignment="Top">
+                <Border Width="36" Height="36" CornerRadius="{DynamicResource ControlRadius}" Background="{DynamicResource ModeToolsSubtleBrush}" Margin="0,0,14,0" VerticalAlignment="Top">
                     <TextBlock Text="&#xE7A8;" Style="{StaticResource Icon}" Foreground="{DynamicResource ModeToolsBrush}" />
                 </Border>
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
@@ -73,7 +72,7 @@
             </Grid>
 
             <!-- Preview -->
-            <Border Grid.Row="1" Background="{DynamicResource WindowBrush}" CornerRadius="2" Margin="24,0">
+            <Border Grid.Row="1" Background="{DynamicResource WindowBrush}" CornerRadius="{DynamicResource ControlRadius}" Margin="24,0">
                 <Grid>
                     <controls:CropCanvas x:Name="Cropper" SelectionChanged="OnSelectionChanged" />
                     <TextBlock x:Name="StatusText" Text="Loading preview…" Style="{StaticResource Caption}"

@@ -12,6 +12,14 @@ namespace Orbit.Services
         private const int WM_TRAYICON = WM_USER + 101;
         private const int WM_LBUTTONUP = 0x0202;
         private const int WM_RBUTTONUP = 0x0205;
+        private const int WM_ENDSESSION = 0x0016;
+        private const uint TPM_RIGHTBUTTON = 0x0002;
+        private const uint TPM_RETURNCMD = 0x0100;
+        private const uint MF_STRING = 0;
+        private const uint MF_SEPARATOR = 0x0800;
+        private const int OPEN_COMMAND = 1;
+        private const int EXIT_COMMAND = 2;
+        private const int HWND_BROADCAST = 0xffff;
 
         private const int NIM_ADD = 0x00000000;
         private const int NIM_MODIFY = 0x00000001;
@@ -65,12 +73,39 @@ namespace Orbit.Services
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
         private static extern int RegisterWindowMessage(string lpString);
 
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
+        private static extern bool PostMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
+
+        [DllImport("user32.dll")]
+        private static extern bool SetForegroundWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        private static extern bool GetCursorPos(out POINT point);
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr CreatePopupMenu();
+
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
+        private static extern bool AppendMenu(IntPtr menu, uint flags, uint id, string? text);
+
+        [DllImport("user32.dll")]
+        private static extern int TrackPopupMenu(IntPtr menu, uint flags, int x, int y, int reserved, IntPtr owner, IntPtr rect);
+
+        [DllImport("user32.dll")]
+        private static extern bool DestroyMenu(IntPtr menu);
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct POINT { public int X; public int Y; }
+
         private const uint IMAGE_ICON = 1;
         private const uint LR_LOADFROMFILE = 0x00000010;
         private const int SM_CXSMICON = 49;
 
         // Sent to all top-level windows when Explorer (and the taskbar) restarts; tray icons must be re-added
         private static readonly int WM_TASKBARCREATED = RegisterWindowMessage("TaskbarCreated");
+        private static readonly int WM_OPEN_ORBIT = RegisterWindowMessage("Orbit.OpenMainWindow");
+
+        public static void RequestExistingWindow() => PostMessage(new IntPtr(HWND_BROADCAST), WM_OPEN_ORBIT, IntPtr.Zero, IntPtr.Zero);
 
         private IntPtr _hwnd;
         private HwndSource? _hwndSource;
@@ -79,6 +114,7 @@ namespace Orbit.Services
         private bool _ownsIcon;
 
         public event Action? TrayClicked;
+        public event Action? ExitRequested;
 
         public void Initialize(Window window)
         {
@@ -183,6 +219,20 @@ namespace Orbit.Services
 
         private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
+            // Restart Manager uses this during upgrades; let Orbit release its hooks and exe cleanly.
+            if (msg == WM_ENDSESSION && wParam != IntPtr.Zero)
+            {
+                ExitRequested?.Invoke();
+                return IntPtr.Zero;
+            }
+
+            if (msg == WM_OPEN_ORBIT && WM_OPEN_ORBIT != 0)
+            {
+                TrayClicked?.Invoke();
+                handled = true;
+                return IntPtr.Zero;
+            }
+
             if (msg == WM_TASKBARCREATED && WM_TASKBARCREATED != 0)
             {
                 _isCreated = false;
@@ -193,14 +243,41 @@ namespace Orbit.Services
             if (msg == WM_TRAYICON)
             {
                 int mouseMsg = (int)lParam;
-                if (mouseMsg is WM_LBUTTONUP or WM_RBUTTONUP)
+                if (mouseMsg == WM_LBUTTONUP)
                 {
                     TrayClicked?.Invoke();
+                    handled = true;
+                }
+                else if (mouseMsg == WM_RBUTTONUP)
+                {
+                    ShowContextMenu();
                     handled = true;
                 }
             }
 
             return IntPtr.Zero;
+        }
+
+        private void ShowContextMenu()
+        {
+            IntPtr menu = CreatePopupMenu();
+            if (menu == IntPtr.Zero) return;
+            try
+            {
+                AppendMenu(menu, MF_STRING, OPEN_COMMAND, "Open Orbit");
+                AppendMenu(menu, MF_SEPARATOR, 0, null);
+                AppendMenu(menu, MF_STRING, EXIT_COMMAND, "Exit");
+                if (!GetCursorPos(out POINT cursor)) return;
+                SetForegroundWindow(_hwnd);
+                int command = TrackPopupMenu(menu, TPM_RIGHTBUTTON | TPM_RETURNCMD, cursor.X, cursor.Y, 0, _hwnd, IntPtr.Zero);
+                PostMessage(_hwnd, 0, IntPtr.Zero, IntPtr.Zero);
+                if (command == OPEN_COMMAND) TrayClicked?.Invoke();
+                else if (command == EXIT_COMMAND) ExitRequested?.Invoke();
+            }
+            finally
+            {
+                DestroyMenu(menu);
+            }
         }
 
         public void RemoveIcon()

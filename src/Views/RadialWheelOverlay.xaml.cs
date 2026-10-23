@@ -72,7 +72,12 @@ namespace Orbit.Views
             InitializeComponent();
             SourceInitialized += (s, e) => MakeNonActivating();
             TemplateManager.Instance.CurrentChanged += ApplyTemplateChrome;
-            Closed += (s, e) => TemplateManager.Instance.CurrentChanged -= ApplyTemplateChrome;
+            AppThemeService.Changed += ApplyTemplateChrome;
+            Closed += (s, e) =>
+            {
+                TemplateManager.Instance.CurrentChanged -= ApplyTemplateChrome;
+                AppThemeService.Changed -= ApplyTemplateChrome;
+            };
             ApplyTemplateChrome();
         }
 

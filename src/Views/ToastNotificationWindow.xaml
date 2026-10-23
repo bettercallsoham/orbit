@@ -14,7 +14,7 @@
         TextOptions.TextFormattingMode="Display">
 
     <Border Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource BorderStrongBrush}" BorderThickness="1"
-            CornerRadius="2" Margin="12" Padding="14,12">
+            CornerRadius="{DynamicResource ControlRadius}" Margin="12" Padding="14,12">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -23,7 +23,7 @@
             </Grid.ColumnDefinitions>
 
             <!-- Status -->
-            <Border x:Name="StatusBg" Grid.Column="0" Width="34" Height="34" CornerRadius="2" Background="{DynamicResource SuccessSubtleBrush}"
+            <Border x:Name="StatusBg" Grid.Column="0" Width="34" Height="34" CornerRadius="{DynamicResource ControlRadius}" Background="{DynamicResource SuccessSubtleBrush}"
                     VerticalAlignment="Center" Margin="0,0,12,0">
                 <TextBlock x:Name="StatusIcon" Text="&#xE73E;" Style="{StaticResource Icon}" FontSize="14" Foreground="{DynamicResource SuccessBrush}" />
             </Border>

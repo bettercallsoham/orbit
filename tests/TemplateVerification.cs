@@ -9,6 +9,7 @@ using Orbit.Controls;
 using Orbit.Models;
 using Orbit.Services;
 using Orbit.Views;
+using Orbit.Wheel;
 
 namespace Orbit.Tests
 {
@@ -60,6 +61,58 @@ namespace Orbit.Tests
 
             foreach (var t in manager.Templates.ToList()) RenderAll(t);
             Console.WriteLine($"     {builtIns} built-ins render in all modes at 60% and 100%");
+
+            foreach (var theme in new[] { AppThemeService.Eclipse, AppThemeService.Boreal, AppThemeService.Solstice })
+            {
+                AppThemeService.Apply(theme.Name);
+                Color expected = ColorUtil.Parse(theme.Accent, Colors.Transparent);
+                var accentBrush = (SolidColorBrush)Application.Current.FindResource("AccentBrush");
+                var backgroundBrush = (SolidColorBrush)Application.Current.FindResource("WindowBrush");
+                var wheel = WheelPalette.For(manager.Current);
+                if (accentBrush.Color != expected || wheel.Convert != expected || wheel.IsLight != theme.IsLight ||
+                    backgroundBrush.Color != ColorUtil.Parse(theme.Background, Colors.Transparent))
+                    throw new Exception($"{theme.Name} did not update the app and wheel palettes together");
+                RenderAll(manager.Current);
+            }
+            AppThemeService.Apply("invalid");
+            if (AppThemeService.Current != AppThemeService.Eclipse)
+                throw new Exception("An invalid theme did not fall back to Eclipse");
+            foreach (var theme in new[] { AppThemeService.Eclipse, AppThemeService.Boreal, AppThemeService.Solstice })
+            {
+                var preview = new ThemeWheelPreview { ThemeName = theme.Name, Width = 188, Height = 140 };
+                preview.Measure(new Size(188, 140));
+                preview.Arrange(new Rect(0, 0, 188, 140));
+                var bitmap = new RenderTargetBitmap(188, 140, 96, 96, PixelFormats.Pbgra32);
+                bitmap.Render(preview);
+                var pixel = new byte[4];
+                bitmap.CopyPixels(new Int32Rect(8, 8, 1, 1), pixel, 4, 0);
+                Color hub = ColorUtil.Parse(theme.Surface, Colors.Transparent);
+                if (pixel[0] != hub.B || pixel[1] != hub.G || pixel[2] != hub.R ||
+                    AppThemeService.Current != AppThemeService.Eclipse)
+                    throw new Exception($"{theme.Name} preview did not render independently of the active theme");
+            }
+            var saved = new AppSettings { Theme = "Boreal", WheelScale = 1.15, ShowKeyHints = true };
+            var reopened = System.Text.Json.JsonSerializer.Deserialize<AppSettings>(
+                System.Text.Json.JsonSerializer.Serialize(saved))!;
+            if (reopened.Theme != "Boreal" || reopened.WheelScale != 1.15 || !reopened.ShowKeyHints ||
+                AppThemeService.Normalize(null) != "Eclipse")
+                throw new Exception("Theme settings did not round-trip or preserve other settings");
+            string settingsPath = Path.Combine(tempDir, "theme-settings.json");
+            var settingsWriter = new SettingsService(settingsPath);
+            settingsWriter.Current.Theme = "Boreal";
+            settingsWriter.Current.WheelScale = 1.15;
+            settingsWriter.SaveSettings(settingsWriter.Current);
+            settingsWriter.Flush();
+            var settingsReader = new SettingsService(settingsPath);
+            if (settingsReader.Current.Theme != "Boreal" || settingsReader.Current.WheelScale != 1.15)
+                throw new Exception("Theme settings were not restored from disk");
+            settingsReader.Current.Theme = "obsolete-theme";
+            settingsReader.SaveSettings(settingsReader.Current);
+            settingsReader.Flush();
+            AppThemeService.Apply(new SettingsService(settingsPath).Current.Theme);
+            if (AppThemeService.Current != AppThemeService.Eclipse)
+                throw new Exception("An obsolete saved theme did not fall back to Eclipse");
+            Console.WriteLine("     Eclipse, Boreal and Solstice resources, wheel and static previews: OK");
 
             var keyboardWheel = new RadialWheelOverlay { Left = -20000, Top = -20000, ShowActivated = false };
             keyboardWheel.Show();

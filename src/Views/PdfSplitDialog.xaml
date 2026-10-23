@@ -11,8 +11,7 @@
         Foreground="{DynamicResource TextPrimaryBrush}"
         TextOptions.TextFormattingMode="Display">
 
-    <Border Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource BorderStrongBrush}"
-            BorderThickness="1" CornerRadius="2" Margin="16" Effect="{StaticResource FlyoutShadow}">
+    <Border Style="{StaticResource DialogShell}" Margin="16">
         <StackPanel>
             <!-- Header (drag to move) -->
             <Grid MouseLeftButtonDown="OnHeaderMouseDown" Background="Transparent" Margin="24,22,24,18">
@@ -20,7 +19,7 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Border Width="36" Height="36" CornerRadius="2" Background="{DynamicResource ModeToolsSubtleBrush}" Margin="0,0,14,0" VerticalAlignment="Top">
+                <Border Width="36" Height="36" CornerRadius="{DynamicResource ControlRadius}" Background="{DynamicResource ModeToolsSubtleBrush}" Margin="0,0,14,0" VerticalAlignment="Top">
                     <TextBlock Text="&#xE8C6;" Style="{StaticResource Icon}" Foreground="{DynamicResource ModeToolsBrush}" />
                 </Border>
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
@@ -47,7 +46,7 @@
                 </TextBlock>
 
                 <!-- Live preview / validation -->
-                <Border x:Name="PreviewBorder" Background="{DynamicResource InputBrush}" CornerRadius="2" Padding="12,10" Margin="0,16,0,0">
+                <Border x:Name="PreviewBorder" Background="{DynamicResource InputBrush}" CornerRadius="{DynamicResource ControlRadius}" Padding="12,10" Margin="0,16,0,0">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock x:Name="PreviewIcon" Text="&#xE73E;" Style="{StaticResource Icon}" FontSize="12" Margin="0,0,8,0" />
                         <TextBlock x:Name="PreviewText" FontSize="12" TextWrapping="Wrap" VerticalAlignment="Center" MaxWidth="360" />

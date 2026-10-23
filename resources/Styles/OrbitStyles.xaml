@@ -4,64 +4,66 @@
 
     <!-- ===================================================================
          Orbit design system
-         Graphite surfaces, one accent, Segoe UI Variable + Segoe Fluent Icons.
+         Eclipse defaults, updated at startup and on selection by AppThemeService.
          Shared by every window via App.xaml.
          =================================================================== -->
 
     <!-- Palette -->
-    <Color x:Key="AccentColor">#892CDC</Color>
-    <SolidColorBrush x:Key="WindowBrush" Color="#000000" />
-    <SolidColorBrush x:Key="SurfaceBrush" Color="#111215" />
-    <SolidColorBrush x:Key="SurfaceRaisedBrush" Color="#1A1B20" />
-    <SolidColorBrush x:Key="SurfaceHoverBrush" Color="#24252C" />
-    <SolidColorBrush x:Key="SurfacePressedBrush" Color="#42434B" />
-    <SolidColorBrush x:Key="InputBrush" Color="#0D0E11" />
-    <SolidColorBrush x:Key="BorderBrush" Color="#303139" />
-    <SolidColorBrush x:Key="BorderStrongBrush" Color="#42434B" />
-    <SolidColorBrush x:Key="DividerBrush" Color="#26272D" />
-    <SolidColorBrush x:Key="TextPrimaryBrush" Color="#F4F4F6" />
-    <SolidColorBrush x:Key="TextSecondaryBrush" Color="#C2C3CA" />
-    <SolidColorBrush x:Key="TextTertiaryBrush" Color="#9698A2" />
-    <SolidColorBrush x:Key="AccentBrush" Color="#892CDC" />
-    <SolidColorBrush x:Key="AccentHoverBrush" Color="#BC6FF1" />
-    <SolidColorBrush x:Key="AccentPressedBrush" Color="#52057B" />
-    <SolidColorBrush x:Key="FocusBrush" Color="#BC6FF1" />
-    <SolidColorBrush x:Key="SelectionBrush" Color="#52057B" />
-    <SolidColorBrush x:Key="AccentSubtleBrush" Color="#1F892CDC" />
+    <Color x:Key="AccentColor">#A78BFA</Color>
+    <SolidColorBrush x:Key="WindowBrush" Color="#0D0B14" />
+    <SolidColorBrush x:Key="SurfaceBrush" Color="#191522" />
+    <SolidColorBrush x:Key="SurfaceRaisedBrush" Color="#292334" />
+    <SolidColorBrush x:Key="SurfaceHoverBrush" Color="#332C40" />
+    <SolidColorBrush x:Key="SurfacePressedBrush" Color="#3D3351" />
+    <SolidColorBrush x:Key="SelectedSurfaceBrush" Color="#3D3351" />
+    <SolidColorBrush x:Key="ChromeBrush" Color="#191522" />
+    <SolidColorBrush x:Key="InputBrush" Color="#191522" />
+    <SolidColorBrush x:Key="BorderBrush" Color="#393244" />
+    <SolidColorBrush x:Key="BorderStrongBrush" Color="#5C536B" />
+    <SolidColorBrush x:Key="DividerBrush" Color="#393244" />
+    <SolidColorBrush x:Key="TextPrimaryBrush" Color="#F5F1FF" />
+    <SolidColorBrush x:Key="TextSecondaryBrush" Color="#B6AFC8" />
+    <SolidColorBrush x:Key="TextTertiaryBrush" Color="#C0BACE" />
+    <SolidColorBrush x:Key="DisabledTextBrush" Color="#777187" />
+    <SolidColorBrush x:Key="AccentBrush" Color="#A78BFA" />
+    <SolidColorBrush x:Key="AccentHoverBrush" Color="#D8CCFF" />
+    <SolidColorBrush x:Key="AccentPressedBrush" Color="#9078D7" />
+    <SolidColorBrush x:Key="FocusBrush" Color="#A78BFA" />
+    <SolidColorBrush x:Key="SelectionBrush" Color="#65A78BFA" />
+    <SolidColorBrush x:Key="AccentSubtleBrush" Color="#24A78BFA" />
     <SolidColorBrush x:Key="SuccessBrush" Color="#69D8AC" />
     <SolidColorBrush x:Key="SuccessSubtleBrush" Color="#1A3DD68C" />
     <SolidColorBrush x:Key="DangerBrush" Color="#F283A1" />
     <SolidColorBrush x:Key="DangerSubtleBrush" Color="#1AF2555A" />
     <SolidColorBrush x:Key="WarningBrush" Color="#F0CB79" />
     <SolidColorBrush x:Key="WarningSubtleBrush" Color="#1AF5B83D" />
-    <SolidColorBrush x:Key="ModeConvertBrush" Color="#892CDC" />
-    <SolidColorBrush x:Key="ModeToolsBrush" Color="#892CDC" />
-    <SolidColorBrush x:Key="ModeActionsBrush" Color="#892CDC" />
+    <SolidColorBrush x:Key="ModeConvertBrush" Color="#A78BFA" />
+    <SolidColorBrush x:Key="ModeToolsBrush" Color="#A78BFA" />
+    <SolidColorBrush x:Key="ModeActionsBrush" Color="#A78BFA" />
 
-    <!-- Defaults for the rest of the palette. The active wheel template replaces every entry above and below
-         at startup and on switch (AppThemeService), so all colors are referenced as DynamicResource. -->
-    <SolidColorBrush x:Key="AccentFaintBrush" Color="#14892CDC" />
-    <SolidColorBrush x:Key="OnAccentBrush" Color="#FFFFFF" />
-    <SolidColorBrush x:Key="ModeConvertSubtleBrush" Color="#1F892CDC" />
-    <SolidColorBrush x:Key="ModeToolsSubtleBrush" Color="#1F892CDC" />
-    <SolidColorBrush x:Key="ModeActionsSubtleBrush" Color="#1F892CDC" />
+    <!-- AppThemeService replaces these shared resources on selection. -->
+    <SolidColorBrush x:Key="AccentFaintBrush" Color="#16A78BFA" />
+    <SolidColorBrush x:Key="OnAccentBrush" Color="#0D0B14" />
+    <SolidColorBrush x:Key="ModeConvertSubtleBrush" Color="#24A78BFA" />
+    <SolidColorBrush x:Key="ModeToolsSubtleBrush" Color="#24A78BFA" />
+    <SolidColorBrush x:Key="ModeActionsSubtleBrush" Color="#24A78BFA" />
     <SolidColorBrush x:Key="HoverTintBrush" Color="#1AFFFFFF" />
     <SolidColorBrush x:Key="PressTintBrush" Color="#10FFFFFF" />
     <SolidColorBrush x:Key="DropZoneBrush" Color="#08FFFFFF" />
     <SolidColorBrush x:Key="ScrollThumbBrush" Color="#3A3D46" />
     <SolidColorBrush x:Key="ScrollThumbHoverBrush" Color="#50545F" />
-    <SolidColorBrush x:Key="PopupBrush" Color="#1A1C22" />
-    <Color x:Key="BrandStartColor">#892CDC</Color>
-    <Color x:Key="BrandEndColor">#892CDC</Color>
+    <SolidColorBrush x:Key="PopupBrush" Color="#191522" />
+    <Color x:Key="BrandStartColor">#A78BFA</Color>
+    <Color x:Key="BrandEndColor">#D8CCFF</Color>
 
     <FontFamily x:Key="UiFont">Segoe UI Variable Text, Segoe UI</FontFamily>
     <FontFamily x:Key="DisplayFont">/resources/Fonts/#Anton</FontFamily>
     <FontFamily x:Key="IconFont">Segoe Fluent Icons, Segoe MDL2 Assets</FontFamily>
 
-    <CornerRadius x:Key="CardRadius">2</CornerRadius>
-    <CornerRadius x:Key="ControlRadius">2</CornerRadius>
+    <CornerRadius x:Key="CardRadius">12</CornerRadius>
+    <CornerRadius x:Key="ControlRadius">8</CornerRadius>
 
-    <DropShadowEffect x:Key="FlyoutShadow" BlurRadius="6" ShadowDepth="2" Direction="270" Opacity="0.2" Color="#000000" />
+    <DropShadowEffect x:Key="FlyoutShadow" BlurRadius="18" ShadowDepth="5" Direction="270" Opacity="0.18" Color="#000000" />
 
     <Style x:Key="OrbitFocusVisual" TargetType="Control">
         <Setter Property="Template">
@@ -75,22 +77,22 @@
 
     <!-- Typography -->
     <Style x:Key="H1" TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="{StaticResource DisplayFont}" />
-        <Setter Property="FontSize" Value="30" />
-        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="FontFamily" Value="{StaticResource UiFont}" />
+        <Setter Property="FontSize" Value="27" />
+        <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
     </Style>
     <Style x:Key="H2" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="{StaticResource UiFont}" />
-        <Setter Property="FontSize" Value="17" />
+        <Setter Property="FontSize" Value="18" />
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
     </Style>
     <Style x:Key="SectionLabel" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontSize" Value="15" />
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
-        <Setter Property="Margin" Value="2,0,0,10" />
+        <Setter Property="Margin" Value="0,0,0,10" />
     </Style>
     <Style x:Key="Body" TargetType="TextBlock">
         <Setter Property="FontSize" Value="13" />
@@ -98,12 +100,12 @@
         <Setter Property="TextWrapping" Value="Wrap" />
     </Style>
     <Style x:Key="Caption" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontSize" Value="12.5" />
         <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}" />
         <Setter Property="TextWrapping" Value="Wrap" />
     </Style>
     <Style x:Key="Overline" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="11" />
+        <Setter Property="FontSize" Value="11.5" />
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Foreground" Value="{DynamicResource TextTertiaryBrush}" />
     </Style>
@@ -123,14 +125,20 @@
         <Setter Property="CornerRadius" Value="{DynamicResource CardRadius}" />
     </Style>
 
+    <Style x:Key="DialogShell" TargetType="Border" BasedOn="{StaticResource Card}">
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderStrongBrush}" />
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="Effect" Value="{StaticResource FlyoutShadow}" />
+    </Style>
+
     <!-- ============================== Buttons ============================== -->
     <Style TargetType="Button">
         <Setter Property="Background" Value="{DynamicResource SurfaceRaisedBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderStrongBrush}" />
         <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="Padding" Value="14,6" />
-        <Setter Property="FontSize" Value="12.5" />
+        <Setter Property="Padding" Value="15,8" />
+        <Setter Property="FontSize" Value="13" />
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="FocusVisualStyle" Value="{StaticResource OrbitFocusVisual}" />
         <Setter Property="Template">
@@ -153,6 +161,8 @@
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="bd" Property="Opacity" Value="0.4" />
+                            <Setter Property="Foreground" Value="{DynamicResource DisabledTextBrush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource DisabledTextBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -177,10 +187,14 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="bd" Property="Background" Value="{DynamicResource AccentHoverBrush}" />
                             <Setter TargetName="bd" Property="BorderBrush" Value="{DynamicResource AccentHoverBrush}" />
-                            <Setter Property="Foreground" Value="#000000" />
+                            <Setter Property="Foreground" Value="{DynamicResource OnAccentBrush}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter TargetName="bd" Property="Background" Value="{DynamicResource AccentPressedBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter TargetName="bd" Property="BorderBrush" Value="{DynamicResource FocusBrush}" />
+                            <Setter TargetName="bd" Property="BorderThickness" Value="2" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="bd" Property="Opacity" Value="0.4" />
@@ -260,12 +274,13 @@
     <Style x:Key="NavTab" TargetType="RadioButton">
         <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}" />
         <Setter Property="FontSize" Value="12.5" />
+        <Setter Property="FontWeight" Value="Medium" />
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="FocusVisualStyle" Value="{StaticResource OrbitFocusVisual}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="RadioButton">
-                    <Border x:Name="bd" Background="Transparent" BorderBrush="Transparent" BorderThickness="0,0,0,2" Padding="12,5" Margin="1,0">
+                    <Border x:Name="bd" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" CornerRadius="8" Padding="12,7" Margin="3,0">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{TemplateBinding Tag}" FontFamily="{StaticResource IconFont}" FontSize="13"
                                        VerticalAlignment="Center" Margin="0,1,8,0" />
@@ -279,6 +294,7 @@
                         </Trigger>
                         <Trigger Property="IsChecked" Value="True">
                             <Setter TargetName="bd" Property="BorderBrush" Value="{DynamicResource AccentBrush}" />
+                            <Setter TargetName="bd" Property="Background" Value="{DynamicResource SelectedSurfaceBrush}" />
                             <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -313,6 +329,10 @@
                             <Setter TargetName="box" Property="BorderBrush" Value="{DynamicResource AccentBrush}" />
                             <Setter TargetName="check" Property="Visibility" Value="Visible" />
                         </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="{DynamicResource DisabledTextBrush}" />
+                            <Setter TargetName="box" Property="Opacity" Value="0.55" />
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -336,11 +356,15 @@
                         <Trigger Property="IsChecked" Value="True">
                             <Setter TargetName="track" Property="Background" Value="{DynamicResource AccentBrush}" />
                             <Setter TargetName="track" Property="BorderBrush" Value="{DynamicResource AccentBrush}" />
-                            <Setter TargetName="knob" Property="Fill" Value="White" />
+                            <Setter TargetName="knob" Property="Fill" Value="{DynamicResource OnAccentBrush}" />
                             <Setter TargetName="knob" Property="Margin" Value="24,0,0,0" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="track" Property="BorderBrush" Value="{DynamicResource FocusBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="track" Property="Opacity" Value="0.45" />
+                            <Setter TargetName="knob" Property="Opacity" Value="0.45" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -371,6 +395,10 @@
                             <Setter TargetName="ring" Property="Fill" Value="{DynamicResource AccentBrush}" />
                             <Setter TargetName="ring" Property="Stroke" Value="{DynamicResource AccentBrush}" />
                             <Setter TargetName="dot" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="{DynamicResource DisabledTextBrush}" />
+                            <Setter TargetName="ring" Property="Opacity" Value="0.55" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -426,6 +454,25 @@
                             </Track.Thumb>
                         </Track>
                     </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False"><Setter Property="Opacity" Value="0.45" /></Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="ProgressBar">
+        <Setter Property="Background" Value="{DynamicResource BorderBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource AccentBrush}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ProgressBar">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="2" ClipToBounds="True">
+                        <Grid x:Name="PART_Track">
+                            <Border x:Name="PART_Indicator" Background="{TemplateBinding Foreground}" CornerRadius="2" HorizontalAlignment="Left" />
+                        </Grid>
+                    </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -575,6 +622,9 @@
                         <Trigger Property="IsKeyboardFocused" Value="True">
                             <Setter TargetName="focusLine" Property="Visibility" Value="Visible" />
                         </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="bd" Property="Opacity" Value="0.45" />
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -590,7 +640,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ToolTip">
                     <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1"
-                            CornerRadius="2" Padding="9,5">
+                            CornerRadius="8" Padding="10,7">
                         <ContentPresenter />
                     </Border>
                 </ControlTemplate>
@@ -616,7 +666,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ComboBoxItem">
                     <Grid Margin="2,1">
-                        <Border x:Name="bd" Background="Transparent" CornerRadius="2" Padding="{TemplateBinding Padding}">
+                        <Border x:Name="bd" Background="Transparent" CornerRadius="6" Padding="{TemplateBinding Padding}">
                             <ContentPresenter VerticalAlignment="Center" />
                         </Border>
                         <Border x:Name="pip" Width="3" Height="14" CornerRadius="1.5" Background="{DynamicResource AccentBrush}"
@@ -629,6 +679,9 @@
                         <Trigger Property="IsSelected" Value="True">
                             <Setter TargetName="bd" Property="Background" Value="{DynamicResource SurfaceHoverBrush}" />
                             <Setter TargetName="pip" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="{DynamicResource DisabledTextBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -659,7 +712,7 @@
                         <Popup x:Name="PART_Popup" Placement="Bottom" VerticalOffset="4" AllowsTransparency="True" Focusable="False"
                                IsOpen="{TemplateBinding IsDropDownOpen}" PopupAnimation="Fade">
                             <Border MinWidth="{TemplateBinding ActualWidth}" Background="{DynamicResource PopupBrush}" BorderBrush="{DynamicResource BorderStrongBrush}"
-                                    BorderThickness="1" CornerRadius="2" Padding="2,4" Margin="8,0,8,12" Effect="{StaticResource FlyoutShadow}">
+                                    BorderThickness="1" CornerRadius="8" Padding="3,5" Margin="8,0,8,12" Effect="{StaticResource FlyoutShadow}">
                                 <ScrollViewer MaxHeight="{TemplateBinding MaxDropDownHeight}">
                                     <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
                                 </ScrollViewer>
@@ -672,6 +725,13 @@
                         </Trigger>
                         <Trigger Property="IsDropDownOpen" Value="True">
                             <Setter TargetName="toggle" Property="BorderBrush" Value="{DynamicResource AccentBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                            <Setter TargetName="toggle" Property="BorderBrush" Value="{DynamicResource FocusBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="{DynamicResource DisabledTextBrush}" />
+                            <Setter Property="Opacity" Value="0.55" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

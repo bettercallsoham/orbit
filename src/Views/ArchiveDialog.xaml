@@ -16,14 +16,14 @@
         <Style x:Key="PresetChip" TargetType="RadioButton">
             <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}" />
             <Setter Property="Cursor" Value="Hand" />
-            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="FocusVisualStyle" Value="{StaticResource OrbitFocusVisual}" />
             <Setter Property="Margin" Value="0,0,6,6" />
             <Setter Property="FontSize" Value="12" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="RadioButton">
                         <Border x:Name="bd" Background="{DynamicResource InputBrush}" BorderBrush="{DynamicResource BorderBrush}"
-                                BorderThickness="1" CornerRadius="2" Padding="12,5">
+                                BorderThickness="1" CornerRadius="{DynamicResource ControlRadius}" Padding="12,5">
                             <ContentPresenter />
                         </Border>
                         <ControlTemplate.Triggers>
@@ -47,8 +47,7 @@
         </Style>
     </Window.Resources>
 
-    <Border Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource BorderStrongBrush}"
-            BorderThickness="1" CornerRadius="2" Margin="16" Effect="{StaticResource FlyoutShadow}">
+    <Border Style="{StaticResource DialogShell}" Margin="16">
         <StackPanel>
             <!-- Header (drag to move) -->
             <Grid MouseLeftButtonDown="OnHeaderMouseDown" Background="Transparent" Margin="24,22,24,16">
@@ -56,7 +55,7 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Border Width="36" Height="36" CornerRadius="2" Background="{DynamicResource ModeActionsSubtleBrush}" Margin="0,0,14,0" VerticalAlignment="Top">
+                <Border Width="36" Height="36" CornerRadius="{DynamicResource ControlRadius}" Background="{DynamicResource ModeActionsSubtleBrush}" Margin="0,0,14,0" VerticalAlignment="Top">
                     <TextBlock Text="&#xE7B8;" Style="{StaticResource Icon}" Foreground="{DynamicResource ModeActionsBrush}" />
                 </Border>
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
@@ -74,7 +73,7 @@
 
                     <!-- Compression settings for the chosen format (built in code) -->
                     <Border Background="{DynamicResource InputBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1"
-                            CornerRadius="2" Padding="16,14" Margin="0,14,0,0">
+                            CornerRadius="{DynamicResource ControlRadius}" Padding="16,14" Margin="0,14,0,0">
                         <StackPanel>
                             <TextBlock Text="COMPRESSION" Style="{StaticResource Overline}" Margin="0,0,0,12" />
                             <StackPanel x:Name="SettingsPanel" />
@@ -90,7 +89,7 @@
                         </StackPanel>
                     </Button>
                         <Border x:Name="AdvancedPanel" Visibility="Collapsed" Background="{DynamicResource InputBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1"
-                                CornerRadius="2" Padding="16,14" Margin="0,8,0,0">
+                                CornerRadius="{DynamicResource ControlRadius}" Padding="16,14" Margin="0,8,0,0">
                             <StackPanel>
                                 <StackPanel x:Name="PasswordFields">
                                     <Grid Margin="0,0,0,8">
@@ -132,7 +131,7 @@
                         </Border>
 
                     <!-- A helper this choice needs isn't installed -->
-                    <Border x:Name="ToolMissingPanel" Background="{DynamicResource WarningSubtleBrush}" CornerRadius="2" Padding="12,10" Margin="0,14,0,0" Visibility="Collapsed">
+                    <Border x:Name="ToolMissingPanel" Background="{DynamicResource WarningSubtleBrush}" CornerRadius="{DynamicResource ControlRadius}" Padding="12,10" Margin="0,14,0,0" Visibility="Collapsed">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -144,7 +143,7 @@
                     </Border>
 
                     <!-- Summary -->
-                    <Border Background="{DynamicResource InputBrush}" CornerRadius="2" Padding="12,10" Margin="0,14,0,0">
+                    <Border Background="{DynamicResource InputBrush}" CornerRadius="{DynamicResource ControlRadius}" Padding="12,10" Margin="0,14,0,0">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />

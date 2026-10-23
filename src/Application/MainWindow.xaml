@@ -23,12 +23,15 @@
             <Setter Property="Margin" Value="0,14" />
             <Setter Property="MinHeight" Value="42" />
         </Style>
-        <Style x:Key="SettingsGroup" TargetType="Border">
+        <Style x:Key="SettingsGroup" TargetType="Border" BasedOn="{StaticResource Card}">
             <Setter Property="Background" Value="{DynamicResource SurfaceBrush}" />
             <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
             <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="CornerRadius" Value="4" />
-            <Setter Property="Padding" Value="20,4" />
+            <Setter Property="Padding" Value="22,6" />
+        </Style>
+        <Style x:Key="ShortcutCard" TargetType="Border" BasedOn="{StaticResource Card}">
+            <Setter Property="Padding" Value="14,13" />
+            <Setter Property="MinHeight" Value="68" />
         </Style>
         <Style x:Key="RowDivider" TargetType="Border">
             <Setter Property="Height" Value="1" />
@@ -47,6 +50,48 @@
             <Setter Property="Padding" Value="6,1" />
             <Setter Property="Background" Value="{DynamicResource SurfaceRaisedBrush}" />
         </Style>
+        <Style x:Key="ThemeCard" TargetType="RadioButton">
+            <Setter Property="Width" Value="210" />
+            <Setter Property="Height" Value="216" />
+            <Setter Property="Margin" Value="0,0,12,0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="FocusVisualStyle" Value="{StaticResource OrbitFocusVisual}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border x:Name="Card" Background="{DynamicResource SurfaceRaisedBrush}" BorderBrush="{DynamicResource BorderBrush}"
+                                BorderThickness="1" CornerRadius="8" Padding="8" SnapsToDevicePixels="True">
+                            <Grid>
+                                <ContentPresenter />
+                                <Border x:Name="SelectedBadge" Width="22" Height="22" CornerRadius="11"
+                                        Background="{DynamicResource AccentBrush}" HorizontalAlignment="Right"
+                                        VerticalAlignment="Top" Margin="0,5,5,0" Visibility="Collapsed">
+                                    <TextBlock Text="&#xE73E;" FontFamily="{StaticResource IconFont}" FontSize="11"
+                                               Foreground="{DynamicResource OnAccentBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Card" Property="BorderBrush" Value="{DynamicResource BorderStrongBrush}" />
+                                <Setter TargetName="Card" Property="Background" Value="{DynamicResource SurfaceHoverBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="Card" Property="BorderBrush" Value="{DynamicResource FocusBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Card" Property="BorderBrush" Value="{DynamicResource AccentBrush}" />
+                                <Setter TargetName="Card" Property="BorderThickness" Value="2" />
+                                <Setter TargetName="SelectedBadge" Property="Visibility" Value="Visible" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Card" Property="Opacity" Value="0.45" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
 
     <Grid Background="{DynamicResource WindowBrush}">
@@ -56,7 +101,7 @@
         </Grid.RowDefinitions>
 
         <!-- ============================ Title bar ============================ -->
-        <Border Grid.Row="0" BorderBrush="{DynamicResource DividerBrush}" BorderThickness="0,0,0,1">
+        <Border Grid.Row="0" Background="{DynamicResource ChromeBrush}" BorderBrush="{DynamicResource DividerBrush}" BorderThickness="0,0,0,1">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -91,7 +136,7 @@
                             WindowChrome.IsHitTestVisibleInChrome="True" />
                     <Button x:Name="MaximizeBtn" Style="{StaticResource CaptionButton}" Content="&#xE922;" Click="OnMaximizeWindowClick" ToolTip="Maximize"
                             WindowChrome.IsHitTestVisibleInChrome="True" />
-                    <Button Style="{StaticResource CaptionCloseButton}" Content="&#xE8BB;" Click="OnCloseWindowClick" ToolTip="Close"
+                    <Button Style="{StaticResource CaptionCloseButton}" Content="&#xE8BB;" Click="OnCloseWindowClick" ToolTip="Hide to system tray"
                             WindowChrome.IsHitTestVisibleInChrome="True" />
                 </StackPanel>
             </Grid>
@@ -102,7 +147,7 @@
 
             <!-- ======================= HOME ======================= -->
             <ScrollViewer x:Name="ViewOverview" Visibility="Visible" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-              <Grid Margin="40,24,40,20">
+              <Grid Margin="36,28,36,26">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -111,16 +156,16 @@
                 </Grid.RowDefinitions>
 
                 <!-- Page header -->
-                <Grid Grid.Row="0" Margin="0,0,0,14">
+                <Grid Grid.Row="0" Margin="0,0,0,22">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <StackPanel>
-                        <TextBlock Text="MAKE EVERY MOVE COUNT." Style="{StaticResource H1}" />
-                        <TextBlock Style="{StaticResource Caption}" Margin="0,4,0,0"
+                        <TextBlock Text="Make every move count." Style="{StaticResource H1}" />
+                        <TextBlock Style="{StaticResource Body}" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,5,0,0"
                                    Text="Bring an action to the file you're already working with." />
-                        <Button Style="{StaticResource GhostButton}" HorizontalAlignment="Left" Margin="-8,5,0,0"
+                        <Button Style="{StaticResource GhostButton}" HorizontalAlignment="Left" Margin="-10,3,0,0" FontSize="11.5"
                                 Click="OnStarOrbitClick" Content="Enjoying Orbit? Star us on GitHub ↗" ToolTip="Open Orbit on GitHub" />
                     </StackPanel>
                     <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top" Margin="16,4,0,0">
@@ -139,17 +184,17 @@
                                 <TextBlock x:Name="KeyMappingNoticeText" Foreground="{DynamicResource WarningBrush}" FontSize="11.5" TextTrimming="CharacterEllipsis" />
                             </StackPanel>
                         </Border>
-                        <Border Background="{DynamicResource SuccessSubtleBrush}" CornerRadius="2" Padding="10,4" VerticalAlignment="Center">
+                        <Border Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="12" Padding="11,6" VerticalAlignment="Center">
                             <StackPanel Orientation="Horizontal">
                                 <Ellipse Width="7" Height="7" Fill="{DynamicResource SuccessBrush}" VerticalAlignment="Center" Margin="0,0,7,0" />
-                                <TextBlock Text="Listening for shortcuts" Foreground="{DynamicResource SuccessBrush}" FontSize="11.5" FontWeight="SemiBold" />
+                                <TextBlock Text="Listening for shortcuts" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="11.5" FontWeight="Medium" />
                             </StackPanel>
                         </Border>
                     </StackPanel>
                 </Grid>
 
                 <Border x:Name="RemoteNotificationBanner" Grid.Row="1" Visibility="Collapsed" Margin="0,0,0,16" Padding="16,12"
-                        Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource AccentBrush}" BorderThickness="2,1,1,1" CornerRadius="2">
+                        Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource AccentBrush}" BorderThickness="2,1,1,1" CornerRadius="10">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -170,21 +215,21 @@
                 <Grid Grid.Row="2" Margin="0,0,0,16">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="12" />
+                        <ColumnDefinition Width="10" />
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="12" />
+                        <ColumnDefinition Width="10" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <Border Grid.Column="0" BorderBrush="{DynamicResource DividerBrush}" BorderThickness="0,1,0,0" Padding="0,12,8,2">
+                    <Border Grid.Column="0" Style="{StaticResource ShortcutCard}">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <Border Width="28" Height="32" Margin="0,0,8,0">
-                                <TextBlock Text="&#xE8AB;" Style="{StaticResource Icon}" Foreground="{DynamicResource ModeConvertBrush}" />
+                            <Border Width="34" Height="34" CornerRadius="9" Background="{DynamicResource AccentSubtleBrush}" Margin="0,0,10,0">
+                                <TextBlock Text="&#xE8AB;" Style="{StaticResource Icon}" Foreground="{DynamicResource TextPrimaryBrush}" />
                             </Border>
                             <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                 <TextBlock Text="Convert" FontWeight="SemiBold" />
@@ -200,15 +245,15 @@
                         </Grid>
                     </Border>
 
-                    <Border Grid.Column="2" BorderBrush="{DynamicResource DividerBrush}" BorderThickness="0,1,0,0" Padding="0,12,8,2">
+                    <Border Grid.Column="2" Style="{StaticResource ShortcutCard}">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <Border Width="28" Height="32" Margin="0,0,8,0">
-                                <TextBlock Text="&#xE90F;" Style="{StaticResource Icon}" Foreground="{DynamicResource ModeToolsBrush}" />
+                            <Border Width="34" Height="34" CornerRadius="9" Background="{DynamicResource SurfaceRaisedBrush}" Margin="0,0,10,0">
+                                <TextBlock Text="&#xE90F;" Style="{StaticResource Icon}" Foreground="{DynamicResource TextPrimaryBrush}" />
                             </Border>
                             <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                 <TextBlock Text="Tools" FontWeight="SemiBold" />
@@ -224,15 +269,15 @@
                         </Grid>
                     </Border>
 
-                    <Border Grid.Column="4" BorderBrush="{DynamicResource DividerBrush}" BorderThickness="0,1,0,0" Padding="0,12,8,2">
+                    <Border Grid.Column="4" Style="{StaticResource ShortcutCard}">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <Border Width="28" Height="32" Margin="0,0,8,0">
-                                <TextBlock Text="&#xE945;" Style="{StaticResource Icon}" Foreground="{DynamicResource ModeActionsBrush}" />
+                            <Border Width="34" Height="34" CornerRadius="9" Background="{DynamicResource SurfaceRaisedBrush}" Margin="0,0,10,0">
+                                <TextBlock Text="&#xE945;" Style="{StaticResource Icon}" Foreground="{DynamicResource TextPrimaryBrush}" />
                             </Border>
                             <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                 <TextBlock Text="Actions" FontWeight="SemiBold" />
@@ -253,59 +298,59 @@
                 <Grid Grid.Row="3">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition x:Name="ActivitySpacerRow" Height="12" />
+                        <RowDefinition x:Name="ActivitySpacerRow" Height="14" />
                         <RowDefinition x:Name="ActivityRow" Height="Auto" MinHeight="136" />
                     </Grid.RowDefinitions>
 
                     <!-- The active task owns the largest area -->
-                    <Border x:Name="PlaygroundPanel" Grid.Row="0" MinHeight="280" Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="2" AllowDrop="True"
+                    <Border x:Name="PlaygroundPanel" Grid.Row="0" MinHeight="190" Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="12" AllowDrop="True"
                             DragEnter="OnPlaygroundDragEnter" DragOver="OnPlaygroundDragOver"
                             DragLeave="OnPlaygroundDragLeave" Drop="OnPlaygroundDrop">
-                        <Grid Margin="24,16,24,18">
+                        <Grid Margin="24,20,24,22">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
 
-                            <TextBlock x:Name="PlaygroundHeader" Grid.Row="0" Text="HOW TO USE ORBIT" Style="{StaticResource Overline}" Margin="0,0,0,12" />
+                            <TextBlock x:Name="PlaygroundHeader" Grid.Row="0" Text="Get started" Style="{StaticResource H2}" Margin="0,0,0,16" />
 
                             <!-- The empty state is a short guide; the whole panel still accepts a dropped file. -->
-                            <Grid x:Name="PlaygroundPrompt" Grid.Row="1" Margin="18,0,18,0" VerticalAlignment="Center">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <Grid Grid.Row="0" Margin="0,8,0,12">
+                            <Grid x:Name="PlaygroundPrompt" Grid.Row="1" Margin="0,0,0,0" VerticalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0" Margin="0,0,16,0" VerticalAlignment="Top">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="48" />
+                                        <ColumnDefinition Width="36" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Text="01" FontFamily="Cascadia Mono, Consolas" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentHoverBrush}" Margin="0,3,0,0" />
+                                    <TextBlock Text="01" FontFamily="Cascadia Mono, Consolas" FontSize="12" FontWeight="SemiBold" Foreground="{DynamicResource AccentBrush}" Margin="0,4,0,0" />
                                     <StackPanel Grid.Column="1">
-                                        <TextBlock Text="Pick up a file" FontSize="15" FontWeight="SemiBold" />
+                                        <TextBlock Text="Pick up a file" FontSize="14" FontWeight="SemiBold" />
                                         <TextBlock Text="Drag it in Explorer or your editor." Style="{StaticResource Caption}" TextWrapping="Wrap" Margin="0,3,0,0" />
                                     </StackPanel>
                                 </Grid>
-                                <Grid Grid.Row="1" Margin="0,0,0,12">
+                                <Grid Grid.Column="1" Margin="0,0,16,0" VerticalAlignment="Top">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="48" />
+                                        <ColumnDefinition Width="36" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Text="02" FontFamily="Cascadia Mono, Consolas" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentHoverBrush}" Margin="0,3,0,0" />
+                                    <TextBlock Text="02" FontFamily="Cascadia Mono, Consolas" FontSize="12" FontWeight="SemiBold" Foreground="{DynamicResource AccentBrush}" Margin="0,4,0,0" />
                                     <StackPanel Grid.Column="1">
-                                        <TextBlock Text="Open the wheel" FontSize="15" FontWeight="SemiBold" />
+                                        <TextBlock Text="Open the wheel" FontSize="14" FontWeight="SemiBold" />
                                         <TextBlock Text="While dragging, press a shortcut shown above." Style="{StaticResource Caption}" TextWrapping="Wrap" Margin="0,3,0,0" />
                                     </StackPanel>
                                 </Grid>
-                                <Grid Grid.Row="2" Margin="0,0,0,8">
+                                <Grid Grid.Column="2" VerticalAlignment="Top">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="48" />
+                                        <ColumnDefinition Width="36" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Text="03" FontFamily="Cascadia Mono, Consolas" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentHoverBrush}" Margin="0,3,0,0" />
+                                    <TextBlock Text="03" FontFamily="Cascadia Mono, Consolas" FontSize="12" FontWeight="SemiBold" Foreground="{DynamicResource AccentBrush}" Margin="0,4,0,0" />
                                     <StackPanel Grid.Column="1">
-                                        <TextBlock Text="Choose an action" FontSize="15" FontWeight="SemiBold" />
+                                        <TextBlock Text="Choose an action" FontSize="14" FontWeight="SemiBold" />
                                         <TextBlock Text="Point to an option and release the mouse. Press Esc to cancel." Style="{StaticResource Caption}" TextWrapping="Wrap" Margin="0,3,0,0" />
                                     </StackPanel>
                                 </Grid>
@@ -331,15 +376,15 @@
                     </Border>
 
                     <!-- Activity stays available without occupying half the screen when empty -->
-                    <Border x:Name="ActivityPanel" Grid.Row="2" BorderBrush="{DynamicResource DividerBrush}" BorderThickness="0,1,0,0">
-                        <Grid Margin="0,14,0,0">
+                    <Border x:Name="ActivityPanel" Grid.Row="2" Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="12" Padding="18,14">
+                        <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
-                            <Grid Grid.Row="0" Margin="0,0,0,6">
-                                <TextBlock Text="RECENT ACTIVITY" Style="{StaticResource Overline}" VerticalAlignment="Center" />
+                            <Grid Grid.Row="0" Margin="0,0,0,8">
+                                <TextBlock Text="Recent activity" Style="{StaticResource H2}" FontSize="15" VerticalAlignment="Center" />
                                 <Button x:Name="ClearHistoryButton" Style="{StaticResource GhostButton}" Content="Clear" Click="OnClearHistoryClick" HorizontalAlignment="Right" FontSize="12" Visibility="Collapsed" />
                             </Grid>
 
@@ -348,7 +393,7 @@
                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="False">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <Border x:Name="row" CornerRadius="2" Padding="10,10" Margin="0,0,0,2" Background="Transparent">
+                                        <Border x:Name="row" CornerRadius="8" Padding="10,10" Margin="0,0,0,2" Background="Transparent">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="Auto" />
@@ -451,8 +496,56 @@
             <!-- ======================= SETTINGS ======================= -->
             <ScrollViewer x:Name="ViewSettings" Visibility="Collapsed" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                 <StackPanel MaxWidth="900" Margin="48,30,48,48">
-                    <TextBlock Text="SETTINGS" Style="{StaticResource H1}" />
+                    <TextBlock Text="Settings" Style="{StaticResource H1}" />
                     <TextBlock Text="Changes are saved automatically." Style="{StaticResource Caption}" Margin="0,4,0,24" />
+
+                    <TextBlock Text="Appearance" Style="{StaticResource SectionLabel}" />
+                    <Border Style="{StaticResource SettingsGroup}" Margin="0,0,0,24">
+                        <StackPanel Margin="0,8">
+                            <TextBlock Text="Theme" FontWeight="SemiBold" Margin="0,0,0,4" />
+                            <TextBlock Text="Choose the colors used across Orbit and the wheel." Style="{StaticResource Caption}" Margin="0,0,0,12" />
+                            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Margin="0,0,0,7">
+                                <StackPanel Orientation="Horizontal">
+                                    <RadioButton x:Name="EclipseThemeRadio" GroupName="AppTheme" Style="{StaticResource ThemeCard}"
+                                                 AutomationProperties.Name="Eclipse theme" Checked="OnThemeChanged" IsChecked="True">
+                                        <StackPanel>
+                                            <controls:ThemeWheelPreview ThemeName="Eclipse" Width="188" Height="140" />
+                                            <TextBlock Text="Eclipse" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="1,8,0,0" />
+                                            <StackPanel Orientation="Horizontal" Margin="1,7,0,0">
+                                                <Ellipse Width="10" Height="10" Fill="#0D0B14" Stroke="#393244" StrokeThickness="1" Margin="0,0,6,0" />
+                                                <Ellipse Width="10" Height="10" Fill="#191522" Stroke="#393244" StrokeThickness="1" Margin="0,0,6,0" />
+                                                <Ellipse Width="10" Height="10" Fill="#A78BFA" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </RadioButton>
+                                    <RadioButton x:Name="BorealThemeRadio" GroupName="AppTheme" Style="{StaticResource ThemeCard}"
+                                                 AutomationProperties.Name="Boreal theme" Checked="OnThemeChanged">
+                                        <StackPanel>
+                                            <controls:ThemeWheelPreview ThemeName="Boreal" Width="188" Height="140" />
+                                            <TextBlock Text="Boreal" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="1,8,0,0" />
+                                            <StackPanel Orientation="Horizontal" Margin="1,7,0,0">
+                                                <Ellipse Width="10" Height="10" Fill="#0B1718" Stroke="#304748" StrokeThickness="1" Margin="0,0,6,0" />
+                                                <Ellipse Width="10" Height="10" Fill="#142526" Stroke="#304748" StrokeThickness="1" Margin="0,0,6,0" />
+                                                <Ellipse Width="10" Height="10" Fill="#55D6BE" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </RadioButton>
+                                    <RadioButton x:Name="SolsticeThemeRadio" GroupName="AppTheme" Style="{StaticResource ThemeCard}"
+                                                 AutomationProperties.Name="Solstice theme" Checked="OnThemeChanged">
+                                        <StackPanel>
+                                            <controls:ThemeWheelPreview ThemeName="Solstice" Width="188" Height="140" />
+                                            <TextBlock Text="Solstice" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="1,8,0,0" />
+                                            <StackPanel Orientation="Horizontal" Margin="1,7,0,0">
+                                                <Ellipse Width="10" Height="10" Fill="#F7F3EB" Stroke="#DCD6CB" StrokeThickness="1" Margin="0,0,6,0" />
+                                                <Ellipse Width="10" Height="10" Fill="#FFFFFF" Stroke="#DCD6CB" StrokeThickness="1" Margin="0,0,6,0" />
+                                                <Ellipse Width="10" Height="10" Fill="#5B4BDB" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </RadioButton>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </StackPanel>
+                    </Border>
 
                     <!-- Output -->
                     <TextBlock Text="Output" Style="{StaticResource SectionLabel}" />
@@ -751,7 +844,7 @@
                                 <TextBlock Text="&#xE8A5;" Style="{StaticResource Icon}" HorizontalAlignment="Left" />
                                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                     <TextBlock Text="PDF" FontWeight="SemiBold" />
-                                    <TextBlock Text="Windows PDF renderer, PDFsharp and PdfPig. Built in, nothing to install." Style="{StaticResource Caption}" Margin="0,2,0,0" />
+                                    <TextBlock Text="Windows PDF renderer, PDFsharp and PdfPig. Nothing to install." Style="{StaticResource Caption}" Margin="0,2,0,0" />
                                 </StackPanel>
                                 <Border Grid.Column="2" CornerRadius="2" Padding="10,4" VerticalAlignment="Center" Background="{DynamicResource SuccessSubtleBrush}">
                                     <TextBlock Text="Ready" FontSize="11.5" FontWeight="SemiBold" Foreground="{DynamicResource SuccessBrush}" />
@@ -765,7 +858,7 @@
             <!-- ======================= ABOUT ======================= -->
             <ScrollViewer x:Name="ViewAbout" Visibility="Collapsed" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                 <StackPanel MaxWidth="900" Margin="48,30,48,48">
-                    <TextBlock Text="ABOUT ORBIT" Style="{StaticResource H1}" Margin="0,0,0,20" />
+                    <TextBlock Text="About Orbit" Style="{StaticResource H1}" Margin="0,0,0,20" />
 
                     <Border Style="{StaticResource SettingsGroup}" Padding="24" Margin="0,0,0,16">
                         <Grid>
@@ -776,7 +869,7 @@
                             <Image Source="pack://application:,,,/resources/Brand/orbit.png" Width="62" Height="62" Stretch="Uniform" Margin="0,0,22,0" VerticalAlignment="Top" />
                             <StackPanel Grid.Column="1">
                                 <TextBlock Text="ORBIT" Style="{StaticResource Overline}" />
-                                <TextBlock Text="Everything, one move away." FontFamily="{StaticResource DisplayFont}" FontSize="27" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,8,0,8" />
+                                <TextBlock Text="Everything, one move away." FontFamily="{StaticResource UiFont}" FontWeight="SemiBold" FontSize="24" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,8,0,8" />
                                 <TextBlock Text="Choose a file, then use the wheel for conversions, tools, and file actions." Style="{StaticResource Body}" FontSize="14" />
                                 <TextBlock x:Name="AboutVersionText" Style="{StaticResource Caption}" Margin="0,16,0,0" />
                             </StackPanel>

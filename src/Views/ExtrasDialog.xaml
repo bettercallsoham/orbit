@@ -11,8 +11,7 @@
         Foreground="{DynamicResource TextPrimaryBrush}"
         TextOptions.TextFormattingMode="Display">
 
-    <Border Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource BorderStrongBrush}"
-            BorderThickness="1" CornerRadius="2" Margin="16" Effect="{StaticResource FlyoutShadow}">
+    <Border Style="{StaticResource DialogShell}" Margin="16">
         <StackPanel>
             <!-- Header (drag to move) -->
             <Grid MouseLeftButtonDown="OnHeaderMouseDown" Background="Transparent" Margin="24,22,24,18">
@@ -20,7 +19,7 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Border Width="36" Height="36" CornerRadius="2" Background="{DynamicResource AccentSubtleBrush}" Margin="0,0,14,0" VerticalAlignment="Top">
+                <Border Width="36" Height="36" CornerRadius="{DynamicResource ControlRadius}" Background="{DynamicResource AccentSubtleBrush}" Margin="0,0,14,0" VerticalAlignment="Top">
                     <TextBlock Text="&#xE896;" Style="{StaticResource Icon}" Foreground="{DynamicResource AccentBrush}" />
                 </Border>
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
@@ -32,7 +31,7 @@
 
             <StackPanel Margin="24,0,24,0">
                 <!-- FFmpeg -->
-                <Border x:Name="FFmpegRow" Background="{DynamicResource InputBrush}" CornerRadius="2" Padding="14,12" Margin="0,0,0,10">
+                <Border x:Name="FFmpegRow" Background="{DynamicResource InputBrush}" CornerRadius="{DynamicResource ControlRadius}" Padding="14,12" Margin="0,0,0,10">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -49,7 +48,7 @@
                 </Border>
 
                 <!-- LibreOffice -->
-                <Border x:Name="LibreOfficeRow" Background="{DynamicResource InputBrush}" CornerRadius="2" Padding="14,12" Margin="0,0,0,10">
+                <Border x:Name="LibreOfficeRow" Background="{DynamicResource InputBrush}" CornerRadius="{DynamicResource ControlRadius}" Padding="14,12" Margin="0,0,0,10">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />

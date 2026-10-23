@@ -1,24 +1,18 @@
 using System;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
+using Orbit.Services;
+using System.Runtime.InteropServices;
 
 namespace Orbit
 {
     public partial class App : Application
     {
-        [DllImport("user32.dll")]
-        private static extern bool SetForegroundWindow(IntPtr hWnd);
-
-        [DllImport("user32.dll")]
-        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+        private Mutex? _singleInstanceMutex;
 
         [DllImport("kernel32.dll")]
         private static extern bool AttachConsole(int dwProcessId);
         private const int ATTACH_PARENT_PROCESS = -1;
-
-        private const int SW_RESTORE = 9;
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -91,25 +85,19 @@ namespace Orbit
                 return;
             }
 
-            // Replace a previous background instance of this same exe so the new one launches cleanly.
-            // Other copies (a different build folder, a running self-test) are left alone.
-            var currentProcess = Process.GetCurrentProcess();
-            string? currentPath = Environment.ProcessPath;
-            foreach (var p in Process.GetProcessesByName(currentProcess.ProcessName))
-            {
-                try
-                {
-                    if (p.Id == currentProcess.Id) continue;
-                    if (!string.Equals(p.MainModule?.FileName, currentPath, StringComparison.OrdinalIgnoreCase)) continue;
-                    p.Kill();
-                    p.WaitForExit(1000);
-                }
-                catch { }
-            }
-
             if (Array.IndexOf(e.Args, Services.InstallService.UninstallArg) >= 0)
             {
                 RunUninstall(quiet: Array.IndexOf(e.Args, "--quiet") >= 0);
+                Shutdown();
+                return;
+            }
+
+            // One interactive instance per Windows session. A second launch reopens the existing window,
+            // including when it is hidden in the tray, without tearing down its hooks or active work.
+            _singleInstanceMutex = new Mutex(true, "Local\\Orbit.InteractiveInstance", out bool isFirstInstance);
+            if (!isFirstInstance)
+            {
+                TrayIconService.RequestExistingWindow();
                 Shutdown();
                 return;
             }
@@ -130,6 +118,12 @@ namespace Orbit
             {
                 main.Show();
             }
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            _singleInstanceMutex?.Dispose();
+            base.OnExit(e);
         }
 
         private static void RunUninstall(bool quiet)

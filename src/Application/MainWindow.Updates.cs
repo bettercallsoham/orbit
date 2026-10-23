@@ -146,7 +146,7 @@ namespace Orbit
                 ResetUpdateButton(release, $"Couldn't finish the update: {ex.Message}");
                 return;
             }
-            Application.Current.Shutdown();
+            ExitOrbit();
         }
 
         private void ResetUpdateButton(ReleaseInfo release, string status)

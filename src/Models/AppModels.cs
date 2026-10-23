@@ -311,6 +311,8 @@ namespace Orbit.Models
 
     public class AppSettings
     {
+        /// <summary>Application color theme. Missing or invalid values resolve to Eclipse.</summary>
+        public string Theme { get; set; } = "Eclipse";
         public bool SaveInSameDirectory { get; set; } = true;
         public string CustomOutputDirectory { get; set; } = string.Empty;
         public bool OverwriteExisting { get; set; } = false;

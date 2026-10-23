@@ -12,8 +12,7 @@
         Foreground="{DynamicResource TextPrimaryBrush}"
         TextOptions.TextFormattingMode="Display">
 
-    <Border Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource BorderStrongBrush}"
-            BorderThickness="1" CornerRadius="2" Margin="16" Effect="{StaticResource FlyoutShadow}">
+    <Border Style="{StaticResource DialogShell}" Margin="16">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -30,7 +29,7 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Border Width="36" Height="36" CornerRadius="2" Background="{DynamicResource ModeToolsSubtleBrush}" Margin="0,0,14,0" VerticalAlignment="Top">
+                <Border Width="36" Height="36" CornerRadius="{DynamicResource ControlRadius}" Background="{DynamicResource ModeToolsSubtleBrush}" Margin="0,0,14,0" VerticalAlignment="Top">
                     <TextBlock Text="&#xE8C6;" Style="{StaticResource Icon}" Foreground="{DynamicResource ModeToolsBrush}" />
                 </Border>
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
@@ -51,13 +50,13 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <Border Background="{DynamicResource WindowBrush}" CornerRadius="2">
+                <Border Background="{DynamicResource WindowBrush}" CornerRadius="{DynamicResource ControlRadius}">
                     <Grid>
                         <Image x:Name="StartImage" Stretch="Uniform" Margin="8" RenderOptions.BitmapScalingMode="HighQuality" />
                         <TextBlock x:Name="StartStatus" Text="Loading…" Style="{StaticResource Caption}" HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Grid>
                 </Border>
-                <Border Grid.Column="2" Background="{DynamicResource WindowBrush}" CornerRadius="2">
+                <Border Grid.Column="2" Background="{DynamicResource WindowBrush}" CornerRadius="{DynamicResource ControlRadius}">
                     <Grid>
                         <Image x:Name="EndImage" Stretch="Uniform" Margin="8" RenderOptions.BitmapScalingMode="HighQuality" />
                         <TextBlock x:Name="EndStatus" Text="Loading…" Style="{StaticResource Caption}" HorizontalAlignment="Center" VerticalAlignment="Center" />

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
 using Orbit.Models;
+using Orbit.Services;
 
 namespace Orbit.Wheel
 {
@@ -177,11 +178,48 @@ namespace Orbit.Wheel
 
         public static WheelPalette For(WheelTemplate template)
         {
+            // The built-in wheel follows the selected application palette. Community templates
+            // retain their own colors; the app currently exposes only the built-in wheel.
+            if (template.Id == BuiltInTemplates.DefaultId)
+            {
+                var theme = AppThemeService.Current;
+                return theme.Name switch
+                {
+                    "Boreal" => BorealWheel,
+                    "Solstice" => SolsticeWheel,
+                    _ => EclipseWheel
+                };
+            }
             if (template.ResolvedCache is WheelPalette p) return p;
             p = new WheelPalette(template.Wheel);
             template.ResolvedCache = p;
             return p;
         }
+
+        private static WheelPalette CreateThemeWheel(AppThemeService.Palette p) => new(new WheelColors
+        {
+            Ring = p.Elevated, Hub = p.Surface, Text = p.Text,
+            TextMuted = p.Secondary, TextFaint = p.Secondary,
+            Edge = ColorUtil.Mix(ColorUtil.Parse(p.Border, Colors.Transparent),
+                ColorUtil.Parse(p.Text, Colors.Transparent), p.IsLight ? 0.13 : 0.04).ToString(),
+            Divider = ColorUtil.Mix(ColorUtil.Parse(p.Border, Colors.Transparent),
+                ColorUtil.Parse(p.Text, Colors.Transparent), p.IsLight ? 0.24 : 0.12).ToString(),
+            Shadow = "#00000000",
+            Convert = p.Accent, Tools = p.Accent, Actions = p.Accent,
+            OnAccent = p.IsLight ? "#FFFFFF" : p.Background
+        });
+
+        private static readonly WheelPalette EclipseWheel = CreateThemeWheel(AppThemeService.Eclipse);
+        private static readonly WheelPalette BorealWheel = CreateThemeWheel(AppThemeService.Boreal);
+        private static readonly WheelPalette SolsticeWheel = CreateThemeWheel(AppThemeService.Solstice);
+
+        /// <summary>A fixed palette for a Settings preview; never changes the active theme.</summary>
+        public static WheelPalette PreviewFor(string? name) => AppThemeService.Normalize(name) switch
+        {
+            "Boreal" => BorealWheel,
+            "Solstice" => SolsticeWheel,
+            _ => EclipseWheel
+        };
     }
 
     public static class ColorUtil

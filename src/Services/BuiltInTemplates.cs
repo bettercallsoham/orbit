@@ -19,21 +19,21 @@ namespace Orbit.Services
                 Renderer = "ring",
                 Wheel = new WheelColors
                 {
-                    Ring = "#FF15161A", Hub = "#FF000000", Text = "#F4F4F6",
-                    TextMuted = "#BFC0C7", TextFaint = "#91939D",
-                    Edge = "#FF52057B", Divider = "#FF42434B", Shadow = "#00000000",
-                    Convert = "#892CDC", Tools = "#892CDC", Actions = "#892CDC",
-                    OnAccent = "#FFFFFF"
+                    Ring = "#292334", Hub = "#191522", Text = "#F5F1FF",
+                    TextMuted = "#B6AFC8", TextFaint = "#B6AFC8",
+                    Edge = "#393244", Divider = "#393244", Shadow = "#00000000",
+                    Convert = "#A78BFA", Tools = "#A78BFA", Actions = "#A78BFA",
+                    OnAccent = "#0D0B14"
                 },
                 App = new AppColors
                 {
-                    Base = "dark", Window = "#000000", Surface = "#111215",
-                    SurfaceRaised = "#1A1B20", SurfaceHover = "#24252C", SurfacePressed = "#2B2C33",
-                    Input = "#0D0E11", Border = "#303139", BorderStrong = "#42434B",
-                    Divider = "#26272D", TextPrimary = "#F4F4F6", TextSecondary = "#C2C3CA",
-                    TextTertiary = "#9698A2", Accent = "#892CDC",
+                    Base = "dark", Window = "#0D0B14", Surface = "#191522",
+                    SurfaceRaised = "#292334", SurfaceHover = "#332C40", SurfacePressed = "#3D3351",
+                    Input = "#191522", Border = "#393244", BorderStrong = "#5C536B",
+                    Divider = "#393244", TextPrimary = "#F5F1FF", TextSecondary = "#B6AFC8",
+                    TextTertiary = "#A09AB1", Accent = "#A78BFA",
                     Success = "#69D8AC", Warning = "#F0CB79", Danger = "#F283A1",
-                    CardRadius = 2, ControlRadius = 2
+                    CardRadius = 12, ControlRadius = 8
                 },
                 Shape = new WheelShape { InnerRatio = 0.39 },
                 Motion = new WheelMotion { Open = "fade", Switch = "fade", DurationMs = 160, HoverMs = 70 },

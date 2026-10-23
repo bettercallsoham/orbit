@@ -11,7 +11,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid Margin="0,0,0,18">
-            <TextBlock Text="NOTIFICATIONS" Style="{StaticResource H1}" VerticalAlignment="Center" />
+            <TextBlock Text="Notifications" Style="{StaticResource H1}" VerticalAlignment="Center" />
             <Button Content="Mark all as read" Style="{StaticResource GhostButton}" Click="OnMarkAllReadClick"
                     HorizontalAlignment="Right" VerticalAlignment="Center" />
         </Grid>
@@ -24,7 +24,7 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" Background="{DynamicResource SurfaceBrush}"
-                                    CornerRadius="2" Padding="16" Margin="0,0,8,10">
+                                    CornerRadius="{DynamicResource ControlRadius}" Padding="16" Margin="0,0,8,10">
                                 <StackPanel>
                                     <Grid>
                                         <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>

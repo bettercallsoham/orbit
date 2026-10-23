@@ -23,7 +23,7 @@ Missing optional tools affect only the actions that need them. Orbit reports the
 
 ## How to Download
 
-Open the [latest Orbit release](https://github.com/bettercallsoham/orbit/releases/latest), download **Orbit-win-x64.exe**, and run it directly on Windows x64. No .NET installation is needed. The executable embeds the license and font notices; run `Orbit-win-x64.exe --notices` from a terminal to read them. **Orbit-Setup.exe** is the optional per-user installer; it installs under `%LOCALAPPDATA%\Programs\Orbit`, adds a Start Menu entry, and does not require administrator privileges.
+Open the [latest Orbit release](https://github.com/bettercallsoham/orbit/releases/latest), download **Orbit-win-x64.exe**, and run it directly on Windows x64. No .NET installation is needed. The executable embeds the license and font notices; run `Orbit-win-x64.exe --notices` from a terminal to read them. **Orbit-Setup.exe** is the optional per-user installer; it installs under `%LOCALAPPDATA%\Programs\Orbit`, offers a Start Menu shortcut, and does not require administrator privileges. Its final page offers to launch Orbit.
 
 ## Build and run
 
@@ -43,6 +43,8 @@ The development build creates `Orbit.exe` and companion files under `bin\Debug\n
 2. In Explorer, drag a file and press the configured key for Convert, Tools, or Actions to open the wheel.
 3. Select an action with the pointer or arrow keys and Enter. Press Esc to close the wheel.
 4. Review progress and results in Recent Activity. Adjust output and shortcut preferences in Settings.
+
+Closing the main window hides Orbit in the system tray; the configured wheel shortcuts continue working. Click the tray icon or select **Open Orbit** from its menu to return. Select **Exit** from that menu to stop Orbit completely.
 
 Update checks are manual under **Settings > System** and use [Orbit's GitHub releases](https://github.com/bettercallsoham/orbit/releases). Automatic replacement requires a compatible single-file release and a matching SHA-256 checksum file.
 

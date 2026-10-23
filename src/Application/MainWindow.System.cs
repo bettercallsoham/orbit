@@ -112,7 +112,7 @@ namespace Orbit
             try
             {
                 InstallService.LaunchInstalled();
-                Application.Current.Shutdown();
+                ExitOrbit();
             }
             catch (Win32Exception ex)
             {
@@ -139,7 +139,7 @@ namespace Orbit
                 MessageBox.Show(this, $"Couldn't finish removing Orbit:\n{ex.Message}", "Uninstall Orbit", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
 
-            if (self) Application.Current.Shutdown();
+            if (self) ExitOrbit();
             else RefreshInstallState();
         }
     }

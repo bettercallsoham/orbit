@@ -27,12 +27,12 @@
         </Storyboard>
 
         <!-- Colors come from the active template (set in code) -->
-        <SolidColorBrush x:Key="HintBarBrush" Color="#110718" />
-        <SolidColorBrush x:Key="HintEdgeBrush" Color="#52057B" />
-        <SolidColorBrush x:Key="KeyCapBrush" Color="#000000" />
-        <SolidColorBrush x:Key="KeyCapEdgeBrush" Color="#52057B" />
-        <SolidColorBrush x:Key="KeyTextBrush" Color="#D3C5DF" />
-        <SolidColorBrush x:Key="HintLabelBrush" Color="#F7F3FA" />
+        <SolidColorBrush x:Key="HintBarBrush" Color="#292334" />
+        <SolidColorBrush x:Key="HintEdgeBrush" Color="#393244" />
+        <SolidColorBrush x:Key="KeyCapBrush" Color="#191522" />
+        <SolidColorBrush x:Key="KeyCapEdgeBrush" Color="#393244" />
+        <SolidColorBrush x:Key="KeyTextBrush" Color="#B6AFC8" />
+        <SolidColorBrush x:Key="HintLabelBrush" Color="#F5F1FF" />
 
         <Style x:Key="KeyCap" TargetType="Border">
             <Setter Property="BorderThickness" Value="1,1,1,1.5" />
@@ -72,7 +72,7 @@
         <!-- Shortcut hints (Settings › Advanced can hide them); scales with the wheel -->
         <Border x:Name="HintBar" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top"
                 Background="{DynamicResource HintBarBrush}" BorderBrush="{DynamicResource HintEdgeBrush}" BorderThickness="1"
-                CornerRadius="2" Padding="3">
+                CornerRadius="{DynamicResource ControlRadius}" Padding="3">
             <Border.LayoutTransform>
                 <ScaleTransform x:Name="HintScale" ScaleX="1" ScaleY="1" />
             </Border.LayoutTransform>
